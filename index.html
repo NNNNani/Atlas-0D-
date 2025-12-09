@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ATLAS{0D} — Global Cyber Unit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="ATLAS{0D} is a global cyber security unit focused on discipline, learning and Zero-Day mindset." />
+  <style>
+    :root {
+      --bg: #050607;
+      --bg-alt: #0b0d10;
+      --accent: #26ff8a;
+      --accent-soft: rgba(38, 255, 138, 0.12);
+      --text-main: #f5f7fa;
+      --text-muted: #8c96a5;
+      --danger: #ff355b;
+      --card-radius: 18px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.6);
+      --border-subtle: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #161b22 0, #050607 55%);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 18px 64px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 20% 0, #26ff8a22 0, #050607 55%);
+      box-shadow: 0 0 24px rgba(38, 255, 138, 0.3);
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo,
+        Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+    }
+
+    .brand-title {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title span:first-child {
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+    }
+
+    .brand-title span:last-child {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    nav {
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+    }
+
+    nav a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+
+    nav a:hover {
+      border-color: rgba(255, 255, 255, 0.16);
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
+      gap: 26px;
+    }
+
+    @media (max-width: 860px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        flex-wrap: wrap;
+      }
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #11141a, #050607);
+      border-radius: 22px;
+      padding: 22px 20px 20px;
+      border: var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at 0 0,
+        rgba(38, 255, 138, 0.16),
+        transparent 55%
+      );
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(3, 255, 138, 0.08);
+      border: 1px solid rgba(38, 255, 138, 0.42);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(38, 255, 138, 0.9);
+    }
+
+    h1 {
+      font-size: clamp(26px, 3vw, 32px);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    h1 span.accent {
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 460px;
+      margin-bottom: 18px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .badge {
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo,
+        Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .badge strong {
+      color: var(--text-main);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 8px 16px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #020303;
+      box-shadow: 0 0 24px rgba(38, 255, 138, 0.6);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.06);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--text-main);
+    }
+
+    .side-card {
+      background: rgba(5, 6, 7, 0.9);
+      border-radius: 22px;
+      padding: 18px 18px 16px;
+      border: var(--border-subtle);
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .side-title {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .chip {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    .chip.highlight {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255, 255, 255, 0.14),
+        transparent
+      );
+      margin: 28px 0 22px;
+    }
+
+    section {
+      margin-bottom: 26px;
+    }
+
+    section h2 {
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .card {
+      background: rgba(6, 7, 10, 0.98);
+      border-radius: var(--card-radius);
+      border: var(--border-subtle);
+      padding: 14px 14px 12px;
+    }
+
+    .card h3 {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .card-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .list {
+      font-size: 13px;
+      color: var(--text-muted);
+      padding-left: 16px;
+    }
+
+    .list li + li {
+      margin-top: 4px;
+    }
+
+    .warning {
+      font-size: 12px;
+      color: var(--danger);
+      margin-top: 6px;
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo,
+        Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    footer {
+      margin-top: 28px;
+      font-size: 11px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--accent);
+      opacity: 0.8;
+    }
+
+    footer a:hover {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="logo">0D</div>
+        <div class="brand-title">
+          <span>ATLAS{0D}</span>
+          <span>global cyber unit</span>
+        </div>
+      </div>
+      <nav>
+        <a href="#mission">Mission</a>
+        <a href="#specialties">Specialties</a>
+        <a href="#challenge">15-Day Cycle</a>
+        <a href="#opsec">OPSEC</a>
+        <a href="#join">Join</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-inner">
+          <div class="pill">
+            <span class="pill-dot"></span>
+            <span>recruitment – wave 01</span>
+          </div>
+          <h1>
+            A focused <span class="accent">cyber unit</span><br />
+            built to grow, not to talk.
+          </h1>
+          <p class="hero-sub">
+            ATLAS{0D} is a global cyber security team. We select motivated
+            operators, give them one clear specialty, and push them to grow
+            through real challenges, every 15 days.
+          </p>
+          <div class="hero-actions">
+            <a
+              class="btn btn-primary"
+              href="https://docs.google.com/forms/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              APPLY VIA ENTRY FORM
+            </a>
+            <a
+              class="btn btn-ghost"
+              href="#specialties"
+            >
+              VIEW TEAM STRUCTURE
+            </a>
+          </div>
+          <div class="hero-grid">
+            <div>
+              <div class="badge">
+                TARGET: <strong>world-class cyber performance</strong>
+              </div>
+            </div>
+            <div>
+              <div class="badge">
+                CYCLE: <strong>1 challenge / 15 days</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="side-card">
+        <div>
+          <div class="side-title">selection snapshot</div>
+          <div class="chips">
+            <span class="chip highlight">Global applicants</span>
+            <span class="chip">Mindset > experience</span>
+            <span class="chip">2 per specialty</span>
+          </div>
+        </div>
+        <div>
+          <div class="side-title">requirements</div>
+          <ul class="list">
+            <li>Serious interest in cyber security</li>
+            <li>Willing to commit to one field</li>
+            <li>Ready to learn and fail forward</li>
+          </ul>
+        </div>
+        <div>
+          <div class="side-title">stack</div>
+          <div class="chips">
+            <span class="chip">Linux</span>
+            <span class="chip">Python / C</span>
+            <span class="chip">Networks</span>
+            <span class="chip">Threat-driven mindset</span>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <div class="divider"></div>
+
+    <section id="mission">
+      <h2>mission</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-tag">
+            <span class="dot"></span> core vision
+          </div>
+          <h3>Not a club. A unit.</h3>
+          <p>
+            ATLAS{0D} is not a casual community. It is a compact, disciplined
+            team that trains like a real cyber operations unit: small, focused,
+            and driven by improvement.
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-tag">
+            <span class="dot"></span> long-term goal
+          </div>
+          <h3>Compete at a world level.</h3>
+          <p>
+            The objective is to reach international standards: CTFs, labs,
+            tooling, research, and real-world skills in both offensive and
+            defensive security.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="specialties">
+      <h2>team specialties</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Red Team</h3>
+          <p>
+            Offensive operations, exploitation, adversary simulation and
+            attack-paths against modern infrastructures.
+          </p>
+        </div>
+        <div class="card">
+          <h3>SOC / Blue Team</h3>
+          <p>
+            Detection engineering, log analysis, incident monitoring, alert
+            triage and response playbooks.
+          </p>
+        </div>
+        <div class="card">
+          <h3>DFIR &amp; Malware</h3>
+          <p>
+            Forensics, timeline building, memory &amp; disk analysis, malware
+            behaviour and reverse-engineering basics.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Cloud &amp; AppSec</h3>
+          <p>
+            Hardening, misconfig detection, secure design, web/app exploitation
+            and remediation patterns.
+          </p>
+        </div>
+        <div class="card">
+          <h3>DevSecOps</h3>
+          <p>
+            CI/CD security, secrets hygiene, supply-chain awareness and
+            automation for secure delivery.
+          </p>
+        </div>
+        <div class="card">
+          <h3>AI × Cyber</h3>
+          <p>
+            Using AI to support defense and understanding how models can be
+            attacked, abused or misused.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="challenge">
+      <h2>15-day challenge cycle</h2>
+      <div class="card">
+        <h3>Grow or stay behind.</h3>
+        <ul class="list">
+          <li>Every 15 days, each operator receives a challenge in their field.</li>
+          <li>Challenges are adapted to level: beginner → advanced.</li>
+          <li>Failure gives a short recovery window to fix and learn.</li>
+          <li>Repeated inactivity or lack of effort = removal from the unit.</li>
+        </ul>
+        <p class="warning">
+          &gt; ATLAS{0D} is designed for people who want to move forward, not
+          for spectators.
+        </p>
+      </div>
+    </section>
+
+    <section id="opsec">
+      <h2>opsec & anonymity</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Identity rules.</h3>
+          <ul class="list">
+            <li>Alias only — no real names, age, nationality or personal links.</li>
+            <li>No real-face profile pictures, no social media connections.</li>
+            <li>Do not ask others about their real identity. Ever.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Purpose of OPSEC.</h3>
+          <p>
+            OPSEC is part of the training itself: anonymity, discipline and
+            compartmentalisation are core skills for any serious operator.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="join">
+      <h2>how to join</h2>
+      <div class="card">
+        <h3>Entry is selective, but open.</h3>
+        <ul class="list">
+          <li>Fill the official ATLAS{0D} Entry Form.</li>
+          <li>We evaluate mindset, logic, motivation and focus.</li>
+          <li>We accept a small number of operators per specialty.</li>
+          <li>Beginners are welcome if they are serious about learning.</li>
+        </ul>
+        <div class="hero-actions" style="margin-top:12px;">
+          <a
+            class="btn btn-primary"
+            href="https://docs.google.com/forms/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            OPEN ENTRY FORM
+          </a>
+          <a
+            class="btn btn-ghost"
+            href="https://discord.gg/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            DISCORD SERVER
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span>© ATLAS{0D} — Global Cyber Unit</span>
+      <span>
+        GitHub:&nbsp;
+        <a href="https://github.com/" target="_blank" rel="noopener noreferrer">
+          https://github.com/your-org
+        </a>
+      </span>
+    </footer>
+  </div>
+</body>
+</html>
